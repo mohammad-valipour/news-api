@@ -45,7 +45,7 @@ func (s *UserService) Create(user *models.User) error {
 	}
 
 	_, err := s.UserRepo.GetByEmail(user.Email)
-	if err != nil {
+	if err == nil {
 		return errors.New("email already exists")
 	}
 

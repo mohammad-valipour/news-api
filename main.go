@@ -11,8 +11,19 @@ import (
 	"news/services"
 
 	"github.com/labstack/echo/v5"
+	echoSwagger "github.com/swaggo/echo-swagger/v2"
+
+	_ "news/docs"
 )
 
+// @title News Website API
+// @version 1.0.0
+// @description RESTful API documentation for News Website.
+// @BasePath /api/v1
+// @host localhost:2345
+// @schemes http
+// @accept json
+// @produce json
 func main() {
 
 	// Load application configuration
@@ -47,6 +58,9 @@ func main() {
 
 	// Create Echo instance
 	e := echo.New()
+
+	// Swagger
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	// Register routes
 	routing.Register(e, userController, categoryController, newsController)
