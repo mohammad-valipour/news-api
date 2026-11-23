@@ -70,7 +70,7 @@ func (r *CategoryRepository) GetAll() ([]models.Category, error) {
 	query := `
 		SELECT id, name, slug, created_at, updated_at
 		FROM categories
-		ORDER BY id DESC
+		ORDER BY id ASC
 	`
 
 	rows, err := r.DB.Query(query)

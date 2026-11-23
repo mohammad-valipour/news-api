@@ -11,6 +11,7 @@ import (
 	"news/services"
 
 	"github.com/labstack/echo/v5"
+	"github.com/labstack/echo/v5/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger/v2"
 
 	_ "news/docs"
@@ -59,6 +60,26 @@ func main() {
 	// Create Echo instance
 	e := echo.New()
 
+	// CORS
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{
+			"http://localhost:3000",
+		},
+		AllowMethods: []string{
+			http.MethodGet,
+			http.MethodPost,
+			http.MethodPut,
+			http.MethodPatch,
+			http.MethodDelete,
+			http.MethodOptions,
+		},
+		AllowHeaders: []string{
+			echo.HeaderOrigin,
+			echo.HeaderContentType,
+			echo.HeaderAccept,
+			echo.HeaderAuthorization,
+		},
+	}))
 	// Swagger
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
